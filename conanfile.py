@@ -42,7 +42,7 @@ class NatsConan(ConanFile):
             del self.options.windows_sdk
 
     def layout(self):
-        cmake_layout(self)
+        cmake_layout(self, src_folder = "src")
 
     def generate(self):
         cmake = CMakeDeps(self)
@@ -63,8 +63,8 @@ class NatsConan(ConanFile):
 
     def source(self):
         git = Git(self)
-        git.clone(url = "ssh://git@bitbucket/lib/nats.git", target = ".")
-        git.checkout("v" + self.version)
+        git.clone(url = "https://github.com/nats-io/nats.c.git", target = "src")
+        git.checkout("v3.6.1")
         files.patch(self, patch_file = "patches/cmakelists.patch", base_path = self.src_base_path) # <--- 2nd change
 
     def requirements(self):
