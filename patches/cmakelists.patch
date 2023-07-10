@@ -1,0 +1,2 @@
+include_directories(${OpenSSL_INCLUDE_DIR})
+set(NATS_OPENSSL_LIBS "${OpenSSL_LIBRARIES}")
