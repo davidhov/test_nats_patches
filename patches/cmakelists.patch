@@ -1,6 +1,0 @@
-8,9c8,9
-<   include_directories(${OPENSSL_INCLUDE_DIR})
-<   set(NATS_OPENSSL_LIBS "${OPENSSL_LIBRARIES}")
----
->   include_directories(${OpenSSL_INCLUDE_DIR})
->   set(NATS_OPENSSL_LIBS "${OpenSSL_LIBRARIES}")
