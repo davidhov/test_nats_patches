@@ -35,15 +35,12 @@ class NatsConan(ConanFile):
         "full_compiler_version"  : ""
     }
 
-    source_dir = "src"
-    short_paths = True
-
     def config_options(self):
         if self.settings.os != "Windows":
             del self.options.windows_sdk
 
     def layout(self):
-        cmake_layout(self, src_folder = self.source_dir)
+        cmake_layout(self, src_folder = "src")
 
     def generate(self):
         cmake = CMakeDeps(self)
@@ -63,10 +60,11 @@ class NatsConan(ConanFile):
         tc.generate()
 
     def source(self):
-        git = Git(self, self.source_dir)
+        git = Git(self)
         git.clone(url = "https://github.com/nats-io/nats.c.git", target = ".")
         git.checkout("v3.6.1")
-        files.patch(self, patch_file = "patches/nats-src-cmakelists-openssl.patch", base_path = self.source_dir)
+        # Apply the patch to the CMekeLists.txt file located in src/
+        files.patch(self, patch_file = "patches/nats-src-cmakelists-openssl.patch")
 
     def requirements(self):
         self.requires("openssl/3.1.1_0@jenkins/stable")

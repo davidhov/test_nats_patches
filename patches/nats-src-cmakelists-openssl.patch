@@ -1,7 +1,7 @@
-diff --git a/CMakeLists.txt b/CMakeLists.txt
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
 index a1351d8..7ac1ec6 100644
---- a/CMakeLists.txt
-+++ b/CMakeLists.txt
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
 @@ -5,8 +5,8 @@ include_directories(include)
  include_directories(${NATS_PLATFORM_INCLUDE})
  
