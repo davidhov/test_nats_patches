@@ -17,7 +17,7 @@ class NatsConan(ConanFile):
     version = "3.6.1"
     license = "Apache-2.0"
     settings = "os", "compiler", "build_type", "arch"
-    exports_sources = ["patches/*"] # <--- 1st change
+    exports_sources = ["patches/*"]
     
     options = {
         "shared"                 : [True, False],
@@ -35,6 +35,7 @@ class NatsConan(ConanFile):
         "full_compiler_version"  : ""
     }
 
+    source_path = "src"
     short_paths = True
 
     def config_options(self):
@@ -62,10 +63,10 @@ class NatsConan(ConanFile):
         tc.generate()
 
     def source(self):
-        git = Git(self)
-        git.clone(url = "https://github.com/nats-io/nats.c.git", target = "src")
+        git = Git(self, self.source_path) # <--- here
+        git.clone(url = "https://github.com/nats-io/nats.c.git", target = ".")
         git.checkout("v3.6.1")
-        files.patch(self, patch_file = "patches/cmakelists.patch", base_path = self.src_base_path) # <--- 2nd change
+        files.patch(self, patch_file = "patches/cmakelists.patch", base_path = self.source_path)
 
     def requirements(self):
         self.requires("openssl/3.1.1_0@jenkins/stable")
