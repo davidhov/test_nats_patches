@@ -8,8 +8,8 @@ index a1351d8..7ac1ec6 100644
  if(NATS_BUILD_WITH_TLS)
 -  include_directories(${OPENSSL_INCLUDE_DIR})
 -  set(NATS_OPENSSL_LIBS "${OPENSSL_LIBRARIES}")
-+  include_directories(${OpenSSL_INCLUDE_DIR})
-+  set(NATS_OPENSSL_LIBS "${OpenSSL_LIBRARIES}")
++  include_directories(${openssl_INCLUDE_DIR})
++  set(NATS_OPENSSL_LIBS "${openssl_LIBRARIES}")
  endif(NATS_BUILD_WITH_TLS)
  
  if(NATS_BUILD_STREAMING)

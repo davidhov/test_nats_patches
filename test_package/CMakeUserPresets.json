@@ -1,9 +1,0 @@
-{
-    "version": 4,
-    "vendor": {
-        "conan": {}
-    },
-    "include": [
-        "D:\\engage\\nats\\test_package\\build\\generators\\CMakePresets.json"
-    ]
-}
