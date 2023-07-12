@@ -20,7 +20,6 @@ class NatsConan(ConanFile):
     exports_sources = ["patches/*"]
     
     options = {
-        "shared"                 : [True, False],
         "nats_build_streaming"   : [True, False],
 
         "windows_sdk"            : "ANY",
@@ -28,7 +27,6 @@ class NatsConan(ConanFile):
     }
 
     default_options = {
-        "shared"                 : False,
         "nats_build_streaming"   : False,
 
         "windows_sdk"            : "10.0",
@@ -48,14 +46,10 @@ class NatsConan(ConanFile):
         tc = CMakeToolchain(self)
         tc.variables["NATS_BUILD_STREAMING"] = self.options.nats_build_streaming
         tc.variables["NATS_BUILD_WITH_TLS"] = True
+        tc.variables["NATS_BUILD_LIB_STATIC"] = True
+        tc.variables["NATS_BUILD_LIB_SHARED"] = False
         tc.variables["NATS_BUILD_EXAMPLES"] = False
         tc.variables["BUILD_TESTING"] = False
-        if self.options.shared:
-            tc.variables["NATS_BUILD_LIB_STATIC"] = False
-            tc.variables["NATS_BUILD_LIB_SHARED"] = True
-        else:
-            tc.variables["NATS_BUILD_LIB_STATIC"] = True
-            tc.variables["NATS_BUILD_LIB_SHARED"] = False
 
         tc.generate()
 
@@ -81,8 +75,4 @@ class NatsConan(ConanFile):
         cmake.install()
 
     def package_info(self):
-        if self.options.shared:
-            self.cpp_info.libs = ["nats"]
-            self.cpp_info.bindirs = ["lib"]
-        else:
-            self.cpp_info.libs = collect_libs(self)
+        self.cpp_info.libs = collect_libs(self)
